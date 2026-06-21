@@ -1,156 +1,147 @@
-# 🤖 RAG-SapBot
-Andrea Jinet Nova Osorio
+# 🤖 RAG-SapBot  
+Andrea Jinet Nova Osorio  
+Fecha: 20 de junio de 2026  
 
-Sistema de **Retrieval-Augmented Generation (RAG)** diseñado para consultar, interpretar y responder preguntas sobre documentación SAP (y otros documentos técnicos), combinando **LLMs + búsqueda semántica + embeddings**.
+------------------------------------------------------------
+### 📄 Documento seleccionado y justificación
 
----
+Documento: TS460_2_ES_Col23.pdf
 
-## 🚀 ¿Qué es RAG-SapBot?
+Justificación:
+Se seleccionó este documento porque contiene información clave sobre procesos estándar de SAP SD, incluyendo ventas, devoluciones, organización comercial y gestión de documentos. Es un material técnico adecuado para demostrar la capacidad del sistema RAG en la recuperación de información estructurada y compleja.
 
-**RAG-SapBot** es un asistente inteligente que permite hacer preguntas en lenguaje natural sobre documentación técnica (como SAP) y obtener respuestas precisas basadas en el contenido real de los documentos.
+------------------------------------------------------------
+### 👤 Persona usuaria objetivo y caso de uso
 
-En lugar de depender solo del conocimiento del modelo, el sistema:
+Usuario objetivo:
+Consultores SAP SD, analistas funcionales y usuarios sin experiencia técnica avanzada que necesitan consultar documentación SAP de forma rápida y en lenguaje natural.
 
-1. 📄 Lee documentos (PDFs u otras fuentes)
-2. ✂️ Los divide en fragmentos (chunking)
-3. 🔎 Convierte el texto en embeddings
-4. 🧠 Almacena vectores en una base de datos
-5. 🤖 Recupera contexto relevante según la pregunta
-6. ✍️ Genera respuestas con un modelo de lenguaje
+Caso de uso:
+Permitir la consulta inteligente de documentación SAP mediante preguntas en lenguaje natural, reduciendo el tiempo de búsqueda manual y facilitando la comprensión de procesos como ventas, devoluciones y estructura organizativa.
 
----
+------------------------------------------------------------
+### 🤖 Descripción del sistema
 
-## 🎯 Problema que resuelve
+RAG-SapBot es un sistema basado en Retrieval-Augmented Generation (RAG) que permite responder preguntas usando documentación técnica real.
 
-Los documentos SAP suelen ser:
+El sistema:
+- Carga documentos PDF
+- Divide el contenido en chunks
+- Genera embeddings
+- Almacena vectores en una base de datos
+- Recupera información relevante según la pregunta
+- Genera respuestas con un modelo de lenguaje
 
-- Muy extensos 📚  
-- Técnicos y difíciles de buscar 🔍  
-- Poco amigables para usuarios no expertos  
+------------------------------------------------------------
+### 🧠 Arquitectura del sistema
 
-Este proyecto soluciona eso permitiendo:
+Usuario → Pregunta  
+↓  
+Embedding de la pregunta  
+↓  
+Búsqueda en vector store (similaridad)  
+↓  
+Recuperación de chunks relevantes  
+↓  
+Construcción de contexto  
+↓  
+LLM (generación de respuesta)  
+↓  
+Respuesta final  
 
-- Buscar información semántica en lugar de solo palabras clave
-- Obtener respuestas explicadas en lenguaje natural
-- Ahorrar tiempo en consulta de manuales técnicos
+------------------------------------------------------------
+### 🧱 Estructura del proyecto
 
----
-
-## 🧠 Arquitectura del sistema
-
-El flujo del sistema RAG es el siguiente:
-Usuario → Pregunta
-↓
-Embedding de la pregunta
-↓
-Búsqueda en vector store (similaridad)
-↓
-Recuperación de chunks relevantes
-↓
-Contexto + Prompt
-↓
-LLM (Generación de respuesta)
-↓
-Respuesta final
-
-
----
-
-## 🧱 Estructura del proyecto
 RAG-SapBot/
 │
-├── app.py # Interfaz principal (Flask / API)
-├── rag_engine.py # Motor RAG (retrieval + generación)
-├── ingest.py # Ingesta y procesamiento de documentos
-├── config.py # Configuración del sistema
-├── requirements-rag.txt # Dependencias del proyecto
+├── app.py                  # API / interfaz Flask  
+├── rag_engine.py          # Motor RAG  
+├── ingest.py              # Procesamiento de documentos  
+├── config.py              # Configuración del sistema  
+├── requirements-rag.txt   # Dependencias  
 │
-├── pdf/ # Documentos SAP (fuente de conocimiento)
-│ └── TS460_2_ES_Col23.pdf
+├── pdf/
+│   └── TS460_2_ES_Col23.pdf
 │
-├── templates/ # Frontend HTML
-│ └── index.html
+├── templates/
+│   └── index.html
 │
-├── static/ # CSS / estilos
-│ └── styles.css
+├── static/
+│   └── styles.css
 │
-├── .gitignore
-└── README.md
+└── README.md  
 
+------------------------------------------------------------
+### ⚙️ Tecnologías utilizadas
 
----
+- Python 3.10+
+- Flask
+- LangChain (o implementación propia RAG)
+- FAISS / ChromaDB
+- Embeddings (OpenAI / HuggingFace / Groq)
+- LLM (OpenAI / Groq / Gemini opcional)
+- PyPDF
 
-## ⚙️ Tecnologías utilizadas
+------------------------------------------------------------
+### 📦 Instalación y configuración
 
-- 🐍 Python 3.10+
-- 🔗 LangChain (o lógica propia RAG)
-- 📦 FAISS / ChromaDB (vector store)
-- 🧠 Embeddings (OpenAI / HuggingFace / Groq compatible)
-- 🌐 Flask (API / frontend web)
-- 📄 PyPDF / loaders para documentos
-- 🤖 LLM (OpenAI / Groq / Gemini opcional)
+1. Clonar el repositorio
 
----
+git clone <url-del-repositorio>
+cd RAG-SapBot
 
-## 📦 Instalación
+2. Crear entorno virtual
 
-### 1. Clonar el repositorio
-### 2. Crear entorno virtual
 python -m venv venv
-source venv/bin/activate   # Mac/Linux
 venv\Scripts\activate      # Windows
+source venv/bin/activate   # Linux/Mac
 
-### 3. Instalar dependencias
+3. Instalar dependencias
+
 pip install -r requirements-rag.txt
 
+------------------------------------------------------------
+### 🔑 Configuración de API Key
+
+Si usas Groq:
+set GROQ_API_KEY=tu_api_key   # Windows
+export GROQ_API_KEY=tu_api_key  # Linux/Mac
+
+Si usas OpenAI:
+set OPENAI_API_KEY=tu_api_key
+
+------------------------------------------------------------
 ### 📥 Ingesta de documentos
+
 python ingest.py
 
-### Ejecutar la aplicación
+------------------------------------------------------------
+### 🚀 Ejecución del sistema
+
 python app.py
 
-💬 Ejemplo de uso
+Luego abrir en el navegador:
+http://localhost:5000
 
-Pregunta:
+------------------------------------------------------------
+### 🧪 Cinco preguntas y respuestas generadas por el sistema
 
-¿Cómo funciona el proceso de devoluciones en SAP SD?
+1. ¿Cómo hago una venta en SAP SD?
+El proceso de venta inicia con la consulta, seguida de la oferta, el pedido y finalmente el reparto del producto al cliente.
 
-Respuesta del sistema:
+2. ¿Cuáles son los elementos de un área de ventas?
+Los elementos son: organización de ventas, canal de distribución y sector.
 
-El proceso de devoluciones en SAP SD inicia con la creación de una orden de devolución, seguida por la entrega de retorno y la contabilización de mercancía...
+3. ¿Qué controla el tipo de posición en SAP?
+Controla la determinación de precios y la relación entre posiciones y subposiciones.
 
-🧪 Casos de uso
-Consultas de documentación SAP SD
-Asistente técnico para consultores SAP
-Búsqueda semántica en manuales empresariales
-Chatbot interno para empresas
+4. ¿Qué datos contiene un reparto?
+Contiene información de expedición y aprovisionamiento como cantidades y plazos de entrega.
 
-### 5 preguntas y sus respuestas 
-1. como hago una venta : Para hacer una venta, debes seguir el proceso de ventas correspondiente. En el contexto que me has proporcionado, el proceso de ventas se inicia con la "Consulta" (A).
-    
-    Aquí te presento los pasos generales para hacer una venta:
-    
-    1. **Consulta** (A): El cliente solicita información sobre un producto o servicio. En este paso, debes verificar la disponibilidad del producto y proporcionar información adicional al cliente.
-    2. **Oferta** (B): Después de la consulta, debes presentar una oferta al cliente con los detalles del producto o servicio, incluyendo el precio y cualquier otro beneficio o característica relevante.
-    3. **Pedido** (C): Si el cliente acepta la oferta, debes registrar el pedido y verificar la disponibilidad del producto.
-    4. **Reparto** (D): Finalmente, debes realizar el reparto del producto al cliente.
-    
-    En cuanto al tipo de reparto, debes verificar en el manual SAP qué tipo de reparto se utiliza en el proceso de ventas. Sin embargo, no encuentro esa información en el manual SAP consultado.
+5. ¿Qué proceso se sigue en las devoluciones?
+Incluye la creación de orden de devolución, entrega de retorno y contabilización de mercancía.
 
-2. Cuales son los Elementos de un area de ventas ? Según el manual SAP, los elementos de un área de ventas son:
-    
-    A Organización de ventas
-    B Canal de distribución
-    C Sector
-    
-    Todas las opciones enumeradas son los elementos de un área de ventas.
+------------------------------------------------------------
+### 🧠 Conclusión
 
-3. Que controla el tipo de posicion que ingreso: La respuesta es: El tipo de posición de una posición de un nivel más elevado (en el caso de una subposición).
-4. Que controla el tipo de posicion ? La respuesta es: El tipo de posición controla si se puede efectuar o no la determinación de precios.
-
-Además, según la información proporcionada, el tipo de posición también controla la determinación de subposiciones, ya que el sistema necesita saber el tipo de posición de la posición del nivel superior para determinar las subposiciones.
-
-5. Que datos contiene un reparto ? Los datos para la expedición y el aprovisionamiento se encuentran en los repartos. Puesto que el plazo máximo de entrega y la cantidad del pedido se encuentran en el reparto, cada posición del documento con requisitos de entrega debe contener al menos un reparto.
-   
-6.  Caunto va a quedar el partido de brasil mañana: No encuentro esa informacion en el manual SAP consultado.
-
+RAG-SapBot permite transformar documentación SAP compleja en un sistema de consulta inteligente, mejorando la accesibilidad de la información mediante lenguaje natural y técnicas de recuperación semántica.
