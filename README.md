@@ -1,103 +1,126 @@
-# ReglaBot - Sistema RAG sobre el Reglamento Estudiantil
+# 🤖 RAG-SapBot
 
-ReglaBot es un asistente conversacional especializado en el archivo `pdf/reglamento_estudiantil.pdf`. El sistema carga el PDF, crea fragmentos de texto, genera embeddings, guarda la informacion en ChromaDB y responde preguntas desde una interfaz web creada con Flask.
+Sistema de **Retrieval-Augmented Generation (RAG)** diseñado para consultar, interpretar y responder preguntas sobre documentación SAP (y otros documentos técnicos), combinando **LLMs + búsqueda semántica + embeddings**.
 
-## 1. Preparar el PDF
+---
 
-La carpeta `pdf` ya esta creada. Para copiar automaticamente el reglamento desde la carpeta original, ejecuta:
+## 🚀 ¿Qué es RAG-SapBot?
 
-```powershell
-python copiar_pdf.py
-```
+**RAG-SapBot** es un asistente inteligente que permite hacer preguntas en lenguaje natural sobre documentación técnica (como SAP) y obtener respuestas precisas basadas en el contenido real de los documentos.
 
-Al final debe quedar este archivo:
+En lugar de depender solo del conocimiento del modelo, el sistema:
 
-```text
-pdf/reglamento_estudiantil.pdf
-```
+1. 📄 Lee documentos (PDFs u otras fuentes)
+2. ✂️ Los divide en fragmentos (chunking)
+3. 🔎 Convierte el texto en embeddings
+4. 🧠 Almacena vectores en una base de datos
+5. 🤖 Recupera contexto relevante según la pregunta
+6. ✍️ Genera respuestas con un modelo de lenguaje
 
-## 2. Crear el entorno virtual
+---
 
-Abre esta carpeta en Visual Studio Code:
+## 🎯 Problema que resuelve
 
-```powershell
-cd "C:\Users\Andrea Nova\OneDrive\Escritorio\Proyecto Agente SAP"
-python -m venv .venv
-```
+Los documentos SAP suelen ser:
 
-Activa el entorno:
+- Muy extensos 📚  
+- Técnicos y difíciles de buscar 🔍  
+- Poco amigables para usuarios no expertos  
 
-```powershell
-.\.venv\Scripts\activate
-```
+Este proyecto soluciona eso permitiendo:
 
-## 3. Instalar dependencias
+- Buscar información semántica en lugar de solo palabras clave
+- Obtener respuestas explicadas en lenguaje natural
+- Ahorrar tiempo en consulta de manuales técnicos
 
-```powershell
-python -m pip install --upgrade pip
+---
+
+## 🧠 Arquitectura del sistema
+
+El flujo del sistema RAG es el siguiente:
+Usuario → Pregunta
+↓
+Embedding de la pregunta
+↓
+Búsqueda en vector store (similaridad)
+↓
+Recuperación de chunks relevantes
+↓
+Contexto + Prompt
+↓
+LLM (Generación de respuesta)
+↓
+Respuesta final
+
+
+---
+
+## 🧱 Estructura del proyecto
+RAG-SapBot/
+│
+├── app.py # Interfaz principal (Flask / API)
+├── rag_engine.py # Motor RAG (retrieval + generación)
+├── ingest.py # Ingesta y procesamiento de documentos
+├── config.py # Configuración del sistema
+├── requirements-rag.txt # Dependencias del proyecto
+│
+├── pdf/ # Documentos SAP (fuente de conocimiento)
+│ └── TS460_2_ES_Col23.pdf
+│
+├── templates/ # Frontend HTML
+│ └── index.html
+│
+├── static/ # CSS / estilos
+│ └── styles.css
+│
+├── .gitignore
+└── README.md
+
+
+---
+
+## ⚙️ Tecnologías utilizadas
+
+- 🐍 Python 3.10+
+- 🔗 LangChain (o lógica propia RAG)
+- 📦 FAISS / ChromaDB (vector store)
+- 🧠 Embeddings (OpenAI / HuggingFace / Groq compatible)
+- 🌐 Flask (API / frontend web)
+- 📄 PyPDF / loaders para documentos
+- 🤖 LLM (OpenAI / Groq / Gemini opcional)
+
+---
+
+## 📦 Instalación
+
+### 1. Clonar el repositorio
+### 2. Crear entorno virtual
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
+
+### 3. Instalar dependencias
 pip install -r requirements-rag.txt
-```
 
-## 4. Configurar la llave API
-
-Copia el archivo de ejemplo:
-
-```powershell
-copy .env.example .env
-```
-
-Abre `.env` y reemplaza:
-
-```text
-GOOGLE_API_KEY=pega_aqui_tu_api_key
-```
-
-por tu llave real de Google Gemini.
-
-## 5. Crear la base vectorial
-
-Este paso carga el PDF, crea chunks, genera embeddings y guarda todo en la carpeta `chromadb`.
-
-```powershell
+### 📥 Ingesta de documentos
 python ingest.py
-```
 
-## 6. Ejecutar la interfaz Flask
-
-```powershell
+### Ejecutar la aplicación
 python app.py
-```
 
-Luego abre:
+💬 Ejemplo de uso
 
-```text
-http://127.0.0.1:5000
-```
+Pregunta:
 
-## Como responde ReglaBot
+¿Cómo funciona el proceso de devoluciones en SAP SD?
 
-- Tiene nombre y rol definido: ReglaBot, asistente academico especializado en el Reglamento Estudiantil.
-- Responde solo con informacion del contexto recuperado.
-- Si no encuentra la respuesta en el documento, responde: `No encuentro esa informacion en el reglamento estudiantil consultado.`
-- Al final de cada respuesta cita las paginas consultadas.
+Respuesta del sistema:
 
-## Estructura
+El proceso de devoluciones en SAP SD inicia con la creación de una orden de devolución, seguida por la entrega de retorno y la contabilización de mercancía...
 
-```text
-Proyecto Agente SAP/
-├── app.py
-├── config.py
-├── ingest.py
-├── copiar_pdf.py
-├── rag_engine.py
-├── requirements-rag.txt
-├── .env.example
-├── README.md
-├── pdf/
-│   └── reglamento_estudiantil.pdf
-├── chromadb/
-├── templates/
-│   └── index.html
-└── static/
-    └── styles.css
-```
+🧪 Casos de uso
+Consultas de documentación SAP SD
+Asistente técnico para consultores SAP
+Búsqueda semántica en manuales empresariales
+Chatbot interno para empresas
+
