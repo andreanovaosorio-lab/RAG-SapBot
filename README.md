@@ -1,4 +1,5 @@
 # 🤖 RAG-SapBot
+Andrea Jinet Nova Osorio
 
 Sistema de **Retrieval-Augmented Generation (RAG)** diseñado para consultar, interpretar y responder preguntas sobre documentación SAP (y otros documentos técnicos), combinando **LLMs + búsqueda semántica + embeddings**.
 
@@ -123,4 +124,33 @@ Consultas de documentación SAP SD
 Asistente técnico para consultores SAP
 Búsqueda semántica en manuales empresariales
 Chatbot interno para empresas
+
+### 5 preguntas y sus respuestas 
+1. como hago una venta : Para hacer una venta, debes seguir el proceso de ventas correspondiente. En el contexto que me has proporcionado, el proceso de ventas se inicia con la "Consulta" (A).
+    
+    Aquí te presento los pasos generales para hacer una venta:
+    
+    1. **Consulta** (A): El cliente solicita información sobre un producto o servicio. En este paso, debes verificar la disponibilidad del producto y proporcionar información adicional al cliente.
+    2. **Oferta** (B): Después de la consulta, debes presentar una oferta al cliente con los detalles del producto o servicio, incluyendo el precio y cualquier otro beneficio o característica relevante.
+    3. **Pedido** (C): Si el cliente acepta la oferta, debes registrar el pedido y verificar la disponibilidad del producto.
+    4. **Reparto** (D): Finalmente, debes realizar el reparto del producto al cliente.
+    
+    En cuanto al tipo de reparto, debes verificar en el manual SAP qué tipo de reparto se utiliza en el proceso de ventas. Sin embargo, no encuentro esa información en el manual SAP consultado.
+
+2. Cuales son los Elementos de un area de ventas ? Según el manual SAP, los elementos de un área de ventas son:
+    
+    A Organización de ventas
+    B Canal de distribución
+    C Sector
+    
+    Todas las opciones enumeradas son los elementos de un área de ventas.
+
+3. Que controla el tipo de posicion que ingreso: La respuesta es: El tipo de posición de una posición de un nivel más elevado (en el caso de una subposición).
+4. Que controla el tipo de posicion ? La respuesta es: El tipo de posición controla si se puede efectuar o no la determinación de precios.
+
+Además, según la información proporcionada, el tipo de posición también controla la determinación de subposiciones, ya que el sistema necesita saber el tipo de posición de la posición del nivel superior para determinar las subposiciones.
+
+5. Que datos contiene un reparto ? Los datos para la expedición y el aprovisionamiento se encuentran en los repartos. Puesto que el plazo máximo de entrega y la cantidad del pedido se encuentran en el reparto, cada posición del documento con requisitos de entrega debe contener al menos un reparto.
+   
+6.  Caunto va a quedar el partido de brasil mañana: No encuentro esa informacion en el manual SAP consultado.
 
